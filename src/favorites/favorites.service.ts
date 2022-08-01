@@ -10,6 +10,7 @@ import {
 import { FavoritesResponseEntity } from './entities/favorite-response.entity';
 import { AlbumService } from 'src/album/album.service';
 import { TrackService } from 'src/track/track.service';
+import { EType } from './enums/type.enum';
 
 @Injectable()
 export class FavoritesService {
@@ -75,35 +76,35 @@ export class FavoritesService {
   }
 
   async addFavsArtist(id: string): Promise<void> {
-    return await this.addItem(id, 'artists');
+    return await this.addItem(id, EType.artists);
   }
 
   async addFavsAlbum(id: string): Promise<void> {
-    return await this.addItem(id, 'albums');
+    return await this.addItem(id, EType.albums);
   }
 
   async addFavsTrack(id: string): Promise<void> {
-    return await this.addItem(id, 'tracks');
+    return await this.addItem(id, EType.tracks);
   }
 
   async findAll(): Promise<FavoritesResponseEntity> {
     const favs = {
-      artists: await this.getAll('artists'),
-      albums: await this.getAll('albums'),
-      tracks: await this.getAll('tracks'),
+      artists: await this.getAll(EType.artists),
+      albums: await this.getAll(EType.albums),
+      tracks: await this.getAll(EType.tracks),
     };
     return favs;
   }
 
   async deleteFavsArtist(id: string): Promise<void> {
-    this.delItem(id, 'artists');
+    this.delItem(id, EType.artists);
   }
 
   async deleteFavsAlbum(id: string): Promise<void> {
-    this.delItem(id, 'albums');
+    this.delItem(id, EType.albums);
   }
 
   async deleteFavsTrack(id: string): Promise<void> {
-    this.delItem(id, 'tracks');
+    this.delItem(id, EType.tracks);
   }
 }
